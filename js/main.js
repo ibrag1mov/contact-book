@@ -92,6 +92,16 @@ const renderContact = (arr, node)=>{
 
 }
 
+if(contact.length){
+   renderContact(contact, elList);
+}
+else{
+   const elText = document.createElement('p');
+   elText.textContent = 'Contact qo\'shing';
+   elText.setAttribute('class', 'text-center text-white fs-4 mt-5 pt-5');
+   elList.appendChild(elText)
+}
+
 
 elForm.addEventListener('submit', (evt)=>{
    evt.preventDefault();
