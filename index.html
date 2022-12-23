@@ -15,24 +15,38 @@
 </head>
 
 <body>
+    <div class="load">
+        <div class="loader-wrapper" id="loader-wrapper">
+            <div id="loader"></div>
+        </div>
+    </div>
     <div id="modal" class="modal-wrapper d-none">
-        <div class="card w-50">
-            <h2 class="text-center text-info my-4 pe-none">Create contact</h2>
-            <form class="form">
+        <div class="card">
+            <h2 class="text-center text-info mt-5 mb-4 pe-none">Create contact</h2>
+            <form class="form js-form">
                 <input 
-                    class="form-control w-50 mx-auto mt-4 mb-4 shadow"
+                    id="name-input"
+                    class="form-control new-w-60 mx-auto mt-4 mb-4 shadow"
                     type="text" 
-                    placeholder="Name">
+                    placeholder="Name"
+                    maxlength="30"
+                    required>
                 <input 
-                    class="form-control w-50 mx-auto mb-4 shadow"
+                    id="relationship-input"
+                    class="form-control new-w-60 mx-auto mb-4 shadow"
                     type="text" 
-                    placeholder="Relationship">
+                    placeholder="Relationship"
+                    maxlength="30"
+                    required>
                 <input 
-                    class="form-control w-50 mx-auto mb-4 shadow"
+                    id="phone-input"
+                    class="form-control new-w-60 mx-auto mb-5 shadow"
                     type="tel" 
-                    placeholder="Phone">
+                    placeholder="Phone"
+                    value="+998"
+                    required>
                     <button  
-                        class="btn d-block text-white btn-primary w-50 mx-auto js-create"
+                        class="btn d-block text-white btn-primary new-w-60 mx-auto js-create"
                         type="submit">
                         Add contact
                     </button>
@@ -40,6 +54,44 @@
             <button class="btn btn-danger close-btn js-close">
                 <i class="bi bi-x-lg pe-none"></i>
             </button>
+        </div>
+    </div>
+    <div id="edit" class="edit-modal-wrapper d-none">
+        <div class="card">
+            <h2 class="text-center text-info mt-5 mb-4 pe-none">Edit the contact</h2>
+            <form class="form js-edit-form">
+                <input 
+                    id="name-edit-input"
+                    class="form-control new-w-60 mx-auto mt-4 mb-4 shadow"
+                    type="text" 
+                    placeholder="Name"
+                    maxlength="30"
+                    required>
+                <input 
+                    id="relationship-edit-input"
+                    class="form-control new-w-60 mx-auto mb-4 shadow"
+                    type="text" 
+                    placeholder="Relationship"
+                    maxlength="30"
+                    required>
+                <input 
+                    id="phone-edit-input"
+                    class="form-control new-w-60 mx-auto mb-5 shadow"
+                    type="tel" 
+                    placeholder="Phone"
+                    required>
+                    <div class="btns w-75 mx-auto d-flex">
+                        <button class="btn btn-danger new-w-40  js-edit-close"
+                        type="reset">
+                            Close
+                        </button>
+                        <button  
+                            class="btn text-white btn-primary new-w-40 ms-auto js-edit-btn"
+                            type="submit">
+                            Edited
+                        </button>
+                    </div>
+            </form>
         </div>
     </div>
     <div class="container">
@@ -52,12 +104,12 @@
                 </button>
                 <button class=" btn btn-danger w-25 shadow p-2 rounded">Clear All</button>
             </div>
-            <ul class="list d-flex list-group list-group-horizontal mx-auto new-w-90 p-0">
-                <li class="list-group-item new-w-33 text-center fw-bold text-uppercase">Name</li>
-                <li class="list-group-item new-w-33 text-center fw-bold text-uppercase">Relationship</li>
-                <li class="list-group-item new-w-33 text-center fw-bold text-uppercase">Phone</li>
+            <ul class="list d-none list-group list-group-horizontal mx-auto w-100 p-0 js-list-title">
+                <li class="list-group-item new-w-30 text-center fw-bold text-uppercase">Name</li>
+                <li class="list-group-item new-w-30 text-center fw-bold text-uppercase">Relationship</li>
+                <li class="list-group-item new-w-40 text-center fw-bold text-uppercase">Phone</li>
             </ul>
-            <ul class="list-table d-flex list-group list-group-horizontal mx-auto new-w-90 p-0">
+            <ul class="list-table list-group mx-auto w-100 p-0 js-list">
                 
             </ul>
         </div>
