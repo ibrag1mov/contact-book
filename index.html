@@ -22,29 +22,51 @@
     </div>
     <div id="modal" class="modal-wrapper d-none">
         <div class="card">
-            <h2 class="text-center text-info mt-5 mb-4 pe-none">Create contact</h2>
+            <h2 class="text-center text-white text-shadow mt-5 mb-1 pe-none">Create contact</h2>
             <form class="form js-form">
+                <label for="name-input" class="mt-4 new-w-60 mx-auto text-white d-block pb-1">Name</label>
                 <input 
                     id="name-input"
-                    class="form-control new-w-60 mx-auto mt-4 mb-4 shadow"
+                    class="form-control new-w-60 mx-auto  mb-2 shadow"
                     type="text" 
-                    placeholder="Name"
+                    placeholder="Please enter a name..."
                     maxlength="30"
-                    required>
+                    >
+                <label for="relationship-select" class="new-w-60 mx-auto text-white d-block pb-1">Relationship</label>
+                <select name="relationship" id="relationship-select" class="form-select new-w-60 mx-auto mb-2 shadow">
+                    <option value="Relationship" disabled selected>Please choose ...</option>
+                    <option value="Father">Father</option>
+                    <option value="Mather">Mather</option>
+                    <option value="Brother">Brother</option>
+                    <option value="Sister">Sister</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Another">Another</option>
+                </select>
                 <input 
                     id="relationship-input"
-                    class="form-control new-w-60 mx-auto mb-4 shadow"
+                    class="form-control  d-none new-w-60 mx-auto mb-2 shadow"
                     type="text" 
-                    placeholder="Relationship"
+                    placeholder="Please react…"
                     maxlength="30"
-                    required>
-                <input 
-                    id="phone-input"
-                    class="form-control new-w-60 mx-auto mb-5 shadow"
-                    type="tel" 
-                    placeholder="Phone"
-                    value="+998"
-                    required>
+                    >
+                 <label for="phone-code" class="mt-0 new-w-60 mx-auto text-white d-block pb-1">Phone</label>
+                    <div class="phone-wrpper input-group mx-auto new-w-60">
+                        <input type="tel"
+                            id="phone-code"
+                            class="form-control new-w-10  mb-5 shadow"
+                            placeholder="code {2}"
+                            maxlength="2"
+                            
+                        >
+                        <input 
+                            id="phone-number"
+                            class="form-control new-w-60  mb-5 shadow"
+                            type="tel" 
+                            placeholder="Number {7}"
+                            maxlength="7"
+                            
+                            >
+                    </div>
                     <button  
                         class="btn d-block text-white btn-primary new-w-60 mx-auto js-create"
                         type="submit">
@@ -56,30 +78,45 @@
             </button>
         </div>
     </div>
+    <!-- edit -->
     <div id="edit" class="edit-modal-wrapper d-none">
         <div class="card">
-            <h2 class="text-center text-info mt-5 mb-4 pe-none">Edit the contact</h2>
+            <h2 class="text-center text-white text-shadow mt-5 mb-2 pe-none">Edit the contact</h2>
             <form class="form js-edit-form">
+                <label for="name-edit-input" class="mt-4 new-w-60 mx-auto text-white d-block pb-1">Name</label>
                 <input 
                     id="name-edit-input"
-                    class="form-control new-w-60 mx-auto mt-4 mb-4 shadow"
+                    class="form-control new-w-60 mx-auto mb-2 shadow"
                     type="text" 
-                    placeholder="Name"
+                    placeholder="Please enter a name..."
                     maxlength="30"
-                    required>
-                <input 
+                    >
+                    <label for="relationship-edit-input" class="new-w-60 mx-auto text-white d-block pb-1">Relationship</label>
+           
+                    <input 
                     id="relationship-edit-input"
-                    class="form-control new-w-60 mx-auto mb-4 shadow"
+                    class="form-control new-w-60 mx-auto mb-2 shadow"
                     type="text" 
-                    placeholder="Relationship"
+                    placeholder="Please react…"
                     maxlength="30"
-                    required>
-                <input 
-                    id="phone-edit-input"
-                    class="form-control new-w-60 mx-auto mb-5 shadow"
-                    type="tel" 
-                    placeholder="Phone"
-                    required>
+                    >
+                 
+                    <label for="phone-edit-code" class="mt-0 new-w-60 mx-auto text-white d-block pb-1">Phone</label>
+                    <div class="phone-wrpper input-group mx-auto new-w-60">
+                        <input type="tel"
+                            id="phone-edit-code"
+                            class="form-control new-w-10  mb-5 shadow"
+                            placeholder="code {2}"
+                            maxlength="2"
+                        >
+                        <input 
+                            id="phone-edt-number"
+                            class="form-control new-w-60  mb-5 shadow"
+                            type="tel" 
+                            placeholder="Number {7}"
+                            maxlength="7"
+                            >
+                    </div>
                     <div class="btns w-75 mx-auto d-flex">
                         <button class="btn btn-danger new-w-40  js-edit-close"
                         type="reset">
@@ -96,13 +133,13 @@
     </div>
     <div class="container">
         <div class="row">
-            <h1 class="text-center text-info my-5">Contact Book</h1>
+            <h1 class="text-center text-white text-shadow my-5">Contact Book</h1>
             <div class="ms-auto d-flex justify-content-between new-w-90 mb-5 mx-auto p-0">
-                <button class="btn btn-success w-25 shadow p-2 rounded js-add">
+                <button class="btn mx-auto btn-success w-50 shadow p-2 rounded js-add">
                     <span>Add</span>
                     <i class="bi bi-person-plus-fill "></i>
                 </button>
-                <button class=" btn btn-danger w-25 shadow p-2 rounded">Clear All</button>
+                <button class="d-none btn btn-danger w-25 shadow p-2 rounded js-clear">Clear All</button>
             </div>
             <ul class="list d-none list-group list-group-horizontal mx-auto w-100 p-0 js-list-title">
                 <li class="list-group-item new-w-30 text-center fw-bold text-uppercase">Name</li>

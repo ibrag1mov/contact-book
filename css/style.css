@@ -7,10 +7,7 @@
 
 body{
     height: 100vh;
-    background-image: linear-gradient(to top, #0e4976, #1b4063, #203650, #212e3e, #20252d) ;
-    background-repeat: no-repeat;
-    background-size: cover !important;
-    background-position: center !important;
+    background: #222933;
 }
 
 .new-w-10{
@@ -21,20 +18,30 @@ body{
     width: 30% !important;
 }
 .new-w-31{
-    width: 30.3% !important;
+    width: 30.2% !important;
 }
 .new-w-40{
     width: 40% !important;
 }
 
 .new-w-60{
-    width: 60%;
+    width: 60% !important;
 }
 
 .new-w-90{
     width: 90% !important;
 }
 
+.outline-red{
+    outline: 2px solid #ff0000 !important;
+}
+.outline-blue{
+    outline: 2px solid #0051ff !important;
+}
+
+.text-shadow{
+    text-shadow: 0px 1px 11px rgba(255,255,255,0.78) !important;
+}
 
 #modal
 ,#edit{
@@ -68,6 +75,18 @@ body{
     border-radius: 5px;
     border: 1px solid rgb(2, 107, 254);
     background-color: transparent;
+    /* color: inherit; */
+    text-decoration: none;
+}
+.phone-link{
+    text-decoration: none;
+    cursor: pointer;
+}
+.phone-link:hover{
+    opacity: 0.8;
+}
+.phone-link:active .phone{
+    background-color: rgb(118, 166, 234);
 }
 
 
