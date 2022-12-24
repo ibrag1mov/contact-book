@@ -4,6 +4,7 @@ const elModal=document.querySelector('#modal');
 const elEditModal=document.querySelector('#edit');
 const elCard=document.querySelector('.card');
 const elListTitile = document.querySelector('.js-list-title')
+const elCreateBtn = document.querySelector('.js-create');
 
 
 // add btn
@@ -139,14 +140,12 @@ else{
 
 elRelationshipSelect.addEventListener('change', (evt)=>{
    if(elRelationshipSelect.value=="Another"){
-      elRelationshipInput.classList.remove('d-none')
-      elPhoneCode.setAttribute('class',' form-control new-w-10  mb-3 shadow outline-blue');
-      elPhoneNumber.setAttribute('class',' form-control new-w-60  mb-3 shadow outline-blue');
+      elRelationshipInput.classList.remove('d-none');
+      elCreateBtn.setAttribute('class','btn d-block text-white btn-primary minus-3 new-w-60 mx-auto js-create')
    }
    if(elRelationshipSelect.value!="Another"){
       elRelationshipInput.classList.add('d-none')
-      elPhoneCode.setAttribute('class',' form-control new-w-10  mb-5 shadow outline-blue');
-      elPhoneNumber.setAttribute('class',' form-control new-w-60  mb-5 shadow outline-blue');
+      elCreateBtn.setAttribute('class','btn d-block text-white btn-primary new-w-60 mx-auto js-create')
    }
    elRelationshipSelect.setAttribute('class', 'form-select new-w-60 mx-auto mb-2 shadow outline-blue')
 
