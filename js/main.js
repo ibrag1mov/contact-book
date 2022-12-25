@@ -3,8 +3,9 @@ const elClearBtn=document.querySelector('.js-clear');
 const elModal=document.querySelector('#modal');
 const elEditModal=document.querySelector('#edit');
 const elCard=document.querySelector('.card');
-const elListTitile = document.querySelector('.js-list-title')
+const elHeader=document.querySelector('.header');
 const elCreateBtn = document.querySelector('.js-create');
+
 
 
 // add btn
@@ -20,7 +21,10 @@ elModal.addEventListener('click', (evt)=>{
    }
 })
 
+// time
+let date= new Date();
 
+let newdate=date.getTime()-1671900000000;
 
 
 
@@ -52,53 +56,66 @@ const elEditPhoneCode = document.querySelector('#phone-edit-code');
 const elEditPhoneNumber = document.querySelector('#phone-edt-number');
 
 
-const contact=[];
+const localData = JSON.parse(window.localStorage.getItem('contact'));
+
+const contact = localData ? localData : [];
+// const contact = localData || [];
+
 
 const renderContact = (arr, node)=>{
+   window.localStorage.setItem('contact', JSON.stringify(contact));
    node.innerHTML='';
    arr.forEach((item) => {
       
       const newItem = document.createElement('li');
       const newDivN = document.createElement('div');
-      const newDivR = document.createElement('div');
+      // const newDivR = document.createElement('div');
       const newDivP = document.createElement('div');
       const newDivBtn = document.createElement('div');
-      const newName = document.createElement('span');
+      const newName = document.createElement('h2');
       const newRelationship = document.createElement('span');
       const newPhoneLink = document.createElement('a');
+      const newCallLink = document.createElement('a');
       const newPhone = document.createElement('span');
+      const newCallBtn = document.createElement('button');
       const newEditBtn=document.createElement('button');
       const newDeleteBtn=document.createElement('button');
    
-      newItem.setAttribute('class', 'd-flex w-100 p-0 list-group-item align-items-center js-item ');
-      newDivN.setAttribute('class', 'new-w-30 ps-3 rounded-start border-2  border-end py-3');
-      newDivR.setAttribute('class', 'new-w-30  ps-3  py-3');
-      newDivP.setAttribute('class', 'new-w-31 ps-3 py-3 border-2   border-start');
-      newDivBtn.setAttribute('class', 'new-w-10 ps-3 d-flex');
-      newName.setAttribute('class', 'fs-5');
-      newRelationship.setAttribute('class', ' fs-5');
+      newItem.setAttribute('class', 'w-100 py-2 d-flex align-items-center list-group-item bg-dark bg-opacity-75 js-item border-secondary ');
+      newDivN.setAttribute('class', 'new-w-60 ps-3 text-white text-capitalize border-secondary rounded-start border-2  border-end');
+      // newDivR.setAttribute('class', 'new-w-30  ps-3 ');
+      newDivP.setAttribute('class', ' ps-3 new-w-40 ');
+      newDivBtn.setAttribute('class', 'ps-3 d-flex');
+      newName.setAttribute('class', 'fs-2 m-0 p-0');
+      newRelationship.setAttribute('class', ' fs-6 text-warning');
       newPhoneLink.setAttribute('class', 'phone-link')
-      newPhone.setAttribute('class', 'phone fs-5 pe-none');
-      newEditBtn.setAttribute('class', 'btn bg-light bg-gradient me-2 shadow js-edit-btn');
+      newPhone.setAttribute('class', 'phone fs-5 pe-none border-white text-white');
+      newCallBtn.setAttribute('class', 'btn btn-primary bg-opacity-75 me-2 py-2 shadow js-call-btn')
+      newEditBtn.setAttribute('class', 'btn bg-success bg-opacity-75 text-white text-shadow bg-gradient me-2 shadow js-edit-btn');
       newDeleteBtn.setAttribute('class', 'btn bg-danger text-white bg-gradient shadow js-delete-btn');
    
       newName.textContent = item.name;
       newRelationship.textContent = item.relationship;
       newPhone.textContent =`+998${item.code}${item.number}`;
+      newCallBtn.innerHTML=`<i class="bi bi-telephone-fill pe-none"></i>`
       newEditBtn.innerHTML = `<i class="bi bi-pen  pe-none"></i>`;
       newDeleteBtn.innerHTML = `<i class="bi bi-x-lg pe-none"></i>`;
+      newCallBtn.dataset.contactId = item.id;
       newEditBtn.dataset.contactId = item.id;
       newDeleteBtn.dataset.contactId = item.id;
-      newPhoneLink.href=`tel:998${item.code}${item.number}`
+      newPhoneLink.href=`tel:998${item.code}${item.number}`;
+      newCallLink.href=`tel:998${item.code}${item.number}`;
       
       newPhoneLink.appendChild(newPhone);
       newDivN.appendChild(newName);
-      newDivR.appendChild(newRelationship);
+      newDivN.appendChild(newRelationship);
       newDivP.appendChild(newPhoneLink);
+      newCallLink.appendChild(newCallBtn);
+      newDivBtn.appendChild(newCallLink);
       newDivBtn.appendChild(newEditBtn);
       newDivBtn.appendChild(newDeleteBtn);
       newItem.appendChild(newDivN);
-      newItem.appendChild(newDivR);
+      // newItem.appendChild(newDivR);
       newItem.appendChild(newDivP);
       newItem.appendChild(newDivBtn);
 
@@ -107,36 +124,21 @@ const renderContact = (arr, node)=>{
    });
 
    if(arr.length !== 0){
-      if(elListTitile.classList.contains('d-none')){
-         elListTitile.classList.remove('d-none');
-         elClearBtn.classList.remove('d-none');
-         elAddBtn.setAttribute('class','btn btn-success w-25 shadow p-2 rounded js-add')
-      }
+      elClearBtn.classList.remove('d-none');
+      elAddBtn.setAttribute('class','btn btn-success w-100 mb-4 shadow p-2 rounded js-add')
    }
    if(arr.length === 0){
-      if(!elListTitile.classList.contains('d-none')){
-         elListTitile.classList.add('d-none');
-         elClearBtn.classList.add('d-none');
-         elAddBtn.setAttribute('class','btn mx-auto btn-success w-50 shadow p-2 rounded js-add')
-         const elText = document.createElement('p');
-         elText.textContent = 'Add a contact 😐';
-         elText.setAttribute('class', 'text-center text-white fs-4 mt-5 pt-5');
-         elList.appendChild(elText)
-      }
+      elClearBtn.classList.add('d-none');
+      const elText = document.createElement('p');
+      elText.textContent = 'Add a contact 😐';
+      elText.setAttribute('class', 'text-center text-white fs-4 mt-2 pt-1');
+      elList.appendChild(elText)
+      
    }
 
 }
 
-
-if(contact.length){
-   renderContact(contact, elList);
-}
-else{
-   const elText = document.createElement('p');
-   elText.textContent = 'Add a contact 😐';
-   elText.setAttribute('class', 'text-center text-white fs-4 mt-5 pt-5');
-   elList.appendChild(elText)
-}
+renderContact(contact, elList)
 
 elRelationshipSelect.addEventListener('change', (evt)=>{
    if(elRelationshipSelect.value=="Another"){
@@ -179,7 +181,7 @@ elNameInput.addEventListener('input', (evt)=>{
 let truth=true;
 
 elForm.addEventListener('submit', (evt)=>{
-   
+   evt.preventDefault()
    if(elNameInput.value.length === 0){
       elNameInput.setAttribute('class','form-control new-w-60 mx-auto mb-2 shadow outline-red border-danger')
    }
@@ -210,17 +212,17 @@ elForm.addEventListener('submit', (evt)=>{
    }
 
 
-   if(elNameInput.value.length === 0 || elRelationshipSelect.value == 'Relationship' || truth!=true || elPhoneCode.value.length!==2 || elPhoneNumber.value.length!==7){
-      alert("Enter complete Contact information…❗")
-   }
+   // if(elNameInput.value.length === 0 || elRelationshipSelect.value == 'Relationship' || truth!=true || elPhoneCode.value.length!==2 || elPhoneNumber.value.length!==7){
+   //    alert("Enter complete Contact information…❗")
+   // }
 
    if(elNameInput.value != '' && elRelationshipSelect.value != 'Relationship' && elPhoneCode.value.length===2 && elPhoneNumber.value.length===7 && truth!=false){
-       let elNameValue = elNameInput.value;
-       let elRelationshipSelectValue = elRelationshipSelect.value;
-       let elRelationshipInputValue = elRelationshipInput.value;
-       let elPhoneCodeValue = elPhoneCode.value;
-       let elPhoneNumberValue = elPhoneNumber.value;
-       elRelationshipSelect.value=="Relationship";
+      let elNameValue = elNameInput.value;
+      let elRelationshipSelectValue = elRelationshipSelect.value;
+      let elRelationshipInputValue = elRelationshipInput.value;
+      let elPhoneCodeValue = elPhoneCode.value;
+      let elPhoneNumberValue = elPhoneNumber.value;
+      elRelationshipSelect.value=="Relationship";
        elRelationshipInput.value='';
        elNameInput.value='';
        elRelationshipInput.value='';
@@ -232,17 +234,18 @@ elForm.addEventListener('submit', (evt)=>{
            name: elNameValue,
            relationship: elRelationshipSelectValue == "Another" ? elRelationshipInputValue : elRelationshipSelectValue,
            code: elPhoneCodeValue,
-           number: elPhoneNumberValue
+           number: elPhoneNumberValue,
+           time: newdate
        };
 
        contact.push(newContact);
 
        renderContact(contact, elList);
-
-       elListTitile.setAttribute('class', 'list d-flex list-group list-group-horizontal mx-auto w-100 p-0 js-list-title')
+      
+       elForm.replace()
+      //  elListTitile.setAttribute('class', 'list d-flex list-group list-group-horizontal mx-auto w-100 p-0 js-list-title')
        elModal.setAttribute('class', 'modal-wrapper d-none')
    }
-   evt.preventDefault();
 })
 
 const editFunction=(array)=>{
@@ -340,9 +343,9 @@ elEditForm.addEventListener('submit', (evt)=>{
    }
 
 
-   if(elEditNameInput.value.length === 0 || elEditRelationshipInput.value.length===0 || elEditPhoneCode.value.length!==2 || elEditPhoneNumber.value.length!==7){
-      alert("Enter complete Contact information…❗")
-   }
+   // if(elEditNameInput.value.length === 0 || elEditRelationshipInput.value.length===0 || elEditPhoneCode.value.length!==2 || elEditPhoneNumber.value.length!==7){
+   //    alert("Enter complete Contact information…❗")
+   // }
 
    if(elEditNameInput.value.length !== 0 && elEditRelationshipInput.value.length!==0 && elEditPhoneCode.value.length===2 && elEditPhoneNumber.value.length===7 ){
 
@@ -367,8 +370,65 @@ elEditForm.addEventListener('submit', (evt)=>{
 elClearBtn.addEventListener('click', (evt)=>{
    contact.splice(0);
    renderContact(contact, elList);
-   elListTitile.classList.add('d-none');
    elClearBtn.classList.add('d-none');
-   elAddBtn.setAttribute('class','btn mx-auto btn-success w-50 shadow p-2 rounded js-add')
 })
 
+
+// sort
+
+
+let elSelectSort=document.querySelector('#sort');
+
+
+elSelectSort.addEventListener('change',(e)=>{
+    let elSelectSortVal=elSelectSort.value;
+
+    if(elSelectSortVal != "Sort"){
+        if(elSelectSortVal == "A-Z"){
+            const contactSort = contact.sort((a, b)=> a.name.charCodeAt(0)-b.name.charCodeAt(0));
+            renderContact(contactSort, elList);
+        }
+        else if(elSelectSortVal == "Z-A"){
+            const contactSort = contact.sort((a, b)=> b.name.charCodeAt(0)-a.name.charCodeAt(0));
+            renderContact(contactSort, elList);
+        }
+    }
+    else{
+       const contactSort = contact.sort((a, b)=> a.time-b.time);
+       renderContact(contactSort, elList);
+    }
+    
+    e.preventDefault();
+})
+
+// darkmode
+
+let elModeBtn = document.querySelector('.darkmode');
+
+let theme=false;
+
+elModeBtn.addEventListener('click', function(){
+   theme = !theme;
+   const bg = theme ? 'dark' : 'light';
+   window.localStorage.setItem('theme', bg);
+   changeTheme()
+})
+
+function changeTheme(){
+   if(window.localStorage.getItem('theme')==='dark'){
+      document.body.classList.remove('light')
+      elHeader.classList.remove('header-light')
+      document.body.classList.add('dark');
+      elHeader.classList.add('header-dark')  
+
+      elModeBtn.innerHTML=`<i class="bi bi-sun text-white pe-none fs-4 text-shadow"></i>`
+   }else{
+      document.body.classList.remove('dark');
+      elHeader.classList.remove('header-dark')
+      document.body.classList.add('light');
+      elHeader.classList.add('header-light')
+      elModeBtn.innerHTML=`<i class="bi bi-moon-stars text-dark pe-none fs-4 text-shadow"></i>`
+   }
+}
+
+changeTheme();

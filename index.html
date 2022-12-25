@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="body">
     <div class="load">
         <div class="loader-wrapper" id="loader-wrapper">
             <div id="loader"></div>
@@ -30,11 +30,12 @@
                     class="form-control new-w-60 mx-auto  mb-2 shadow"
                     type="text" 
                     placeholder="Please enter a name..."
-                    maxlength="30"
+                    maxlength="20"
+                    
                     >
                 <label for="relationship-select" class="new-w-60 mx-auto text-white d-block pb-1">Relationship</label>
                 <select name="relationship" id="relationship-select" class="form-select new-w-60 mx-auto mb-2 shadow">
-                    <option value="Relationship" disabled selected>Please choose ...</option>
+                    <option value="Relationship" selected>Please choose ...</option>
                     <option value="Father">Father</option>
                     <option value="Mather">Mather</option>
                     <option value="Brother">Brother</option>
@@ -47,7 +48,7 @@
                     class="form-control  d-none new-w-60 mx-auto mb-2 shadow"
                     type="text" 
                     placeholder="Please react…"
-                    maxlength="30"
+                    maxlength="20"
                     >
                  <label for="phone-code" class="mt-0 new-w-60 mx-auto text-white d-block pb-1">Phone</label>
                     <div class="phone-wrpper input-group mx-auto new-w-60">
@@ -89,7 +90,7 @@
                     class="form-control new-w-60 mx-auto mb-2 shadow"
                     type="text" 
                     placeholder="Please enter a name..."
-                    maxlength="30"
+                    maxlength="20"
                     >
                     <label for="relationship-edit-input" class="new-w-60 mx-auto text-white d-block pb-1">Relationship</label>
            
@@ -98,7 +99,7 @@
                     class="form-control new-w-60 mx-auto mb-2 shadow"
                     type="text" 
                     placeholder="Please react…"
-                    maxlength="30"
+                    maxlength="20"
                     >
                  
                     <label for="phone-edit-code" class="mt-0 new-w-60 mx-auto text-white d-block pb-1">Phone</label>
@@ -131,26 +132,64 @@
             </form>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <h1 class="text-center text-white text-shadow my-5">Contact Book</h1>
-            <div class="ms-auto d-flex justify-content-between new-w-90 mb-5 mx-auto p-0">
-                <button class="btn mx-auto btn-success w-50 shadow p-2 rounded js-add">
-                    <span>Add</span>
-                    <i class="bi bi-person-plus-fill "></i>
-                </button>
-                <button class="d-none btn btn-danger w-25 shadow p-2 rounded js-clear">Clear All</button>
+    <!-- header -->
+
+    <header class="header mb-5">
+        <div class="container">
+            <div class="row"> 
+                <nav class="d-flex justify-content-between align-items-center">
+                    <h1 class="text-shadow my-4">Contact Book</h1>
+                    <div class="nav-link d-flex new-w-60 justify-content-between p-0 m-0">
+                        <ul class="nav-list d-flex justify-content-between new-w-90 m-0 p-0">
+                            <li class="nav-item fs-5 text-shadow fw-semibold py-2 rounded-1 px-3 text-center ">
+                                All
+                            </li>
+                            <li class="nav-item fs-5 text-shadow fw-semibold py-2 rounded-1 px-3 text-center ">
+                                My family
+                            </li>
+                            <li class="nav-item fs-5 text-shadow fw-semibold py-2 rounded-1 px-3 text-center ">
+                                Friends
+                            </li>
+                            <li class="nav-item fs-5 text-shadow fw-semibold py-2 rounded-1 px-3 text-center ">
+                                Another
+                            </li>
+                            <li class="nav-item fs-5 text-shadow fw-semibold py-2 rounded-1 px-3 ">
+                                <span class="favorites px-2">Favorites
+                                    <i class="bi bi-star"></i>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="menu-btn new-w-10 d-flex align-items-center">
+                            <button class="btn ms-auto p-0 darkmode">
+                                <i class="bi bi-sun text-white pe-none fs-4 text-shadow"></i>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
             </div>
-            <ul class="list d-none list-group list-group-horizontal mx-auto w-100 p-0 js-list-title">
-                <li class="list-group-item new-w-30 text-center fw-bold text-uppercase">Name</li>
-                <li class="list-group-item new-w-30 text-center fw-bold text-uppercase">Relationship</li>
-                <li class="list-group-item new-w-40 text-center fw-bold text-uppercase">Phone</li>
-            </ul>
-            <ul class="list-table list-group mx-auto w-100 p-0 js-list">
-                
-            </ul>
         </div>
-    </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row d-flex">
+                <ul class="list-table d-block list-group new-w-60 p-0 js-list">
+                    
+                </ul>
+                <div class="ms-auto w-25 d-flex flex-column mb-5 p-0 ">
+                    <button class="btn btn-success w-100 mb-4 shadow p-2 rounded js-add">
+                        <span>Add</span>
+                        <i class="bi bi-person-plus-fill "></i>
+                    </button>
+                    <button class="btn d-none btn-danger w-100 shadow p-2 mb-4 rounded js-clear">Clear All</button>
+                    <select id="sort" class="form-select w-100 shadow bg-dark bg-opacity-75 text-white fw-semibold js-sort-select" >
+                        <option value="Sort" selected>Date added</option>
+                        <option value="A-Z">A-Z</option>
+                        <option value="Z-A">Z-A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
 
 
     <script src="js/main.js"></script>
