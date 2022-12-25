@@ -228,7 +228,7 @@ elForm.addEventListener('submit', (evt)=>{
        elRelationshipInput.value='';
        elPhoneCode.value="";
        elPhoneNumber.value='';
-   
+
        const newContact = {
            id: contact.length > 0 ? contact[contact.length-1].id + 1 : 1,
            name: elNameValue,
@@ -342,9 +342,9 @@ elEditForm.addEventListener('submit', (evt)=>{
    }
 
 
-   // if(elEditNameInput.value.length === 0 || elEditRelationshipInput.value.length===0 || elEditPhoneCode.value.length!==2 || elEditPhoneNumber.value.length!==7){
-   //    alert("Enter complete Contact information…❗")
-   // }
+   if(elEditNameInput.value.length === 0 || elEditRelationshipInput.value.length===0 || elEditPhoneCode.value.length!==2 || elEditPhoneNumber.value.length!==7){
+      alert("Enter complete Contact information…❗")
+   }
 
    if(elEditNameInput.value.length !== 0 && elEditRelationshipInput.value.length!==0 && elEditPhoneCode.value.length===2 && elEditPhoneNumber.value.length===7 ){
 
