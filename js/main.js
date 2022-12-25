@@ -13,6 +13,12 @@ elAddBtn.addEventListener('click',(evt)=>{
    if(elModal.classList.contains('d-none')){
     elModal.setAttribute('class', 'modal-wrapper d-flex')
    }
+   elRelationshipSelect.value=="Relationship";
+   elRelationshipInput.value='';
+   elNameInput.value='';
+   elRelationshipInput.value='';
+   elPhoneCode.value="";
+   elPhoneNumber.value='';
 })
 
 elModal.addEventListener('click', (evt)=>{
@@ -24,7 +30,7 @@ elModal.addEventListener('click', (evt)=>{
 // time
 let date= new Date();
 
-let newdate=date.getTime()-1671900000000;
+let newdate=date.getTime();
 
 
 
@@ -69,7 +75,6 @@ const renderContact = (arr, node)=>{
       
       const newItem = document.createElement('li');
       const newDivN = document.createElement('div');
-      // const newDivR = document.createElement('div');
       const newDivP = document.createElement('div');
       const newDivBtn = document.createElement('div');
       const newName = document.createElement('h2');
@@ -77,30 +82,28 @@ const renderContact = (arr, node)=>{
       const newPhoneLink = document.createElement('a');
       const newCallLink = document.createElement('a');
       const newPhone = document.createElement('span');
-      const newCallBtn = document.createElement('button');
       const newEditBtn=document.createElement('button');
       const newDeleteBtn=document.createElement('button');
    
       newItem.setAttribute('class', 'w-100 py-2 d-flex align-items-center list-group-item bg-dark bg-opacity-75 js-item border-secondary ');
       newDivN.setAttribute('class', 'new-w-60 ps-3 text-white text-capitalize border-secondary rounded-start border-2  border-end');
-      // newDivR.setAttribute('class', 'new-w-30  ps-3 ');
       newDivP.setAttribute('class', ' ps-3 new-w-40 ');
       newDivBtn.setAttribute('class', 'ps-3 d-flex');
       newName.setAttribute('class', 'fs-2 m-0 p-0');
       newRelationship.setAttribute('class', ' fs-6 text-warning');
       newPhoneLink.setAttribute('class', 'phone-link')
       newPhone.setAttribute('class', 'phone fs-5 pe-none border-white text-white');
-      newCallBtn.setAttribute('class', 'btn btn-primary bg-opacity-75 me-2 py-2 shadow js-call-btn')
+      newCallLink.setAttribute('class', 'btn btn-primary bg-opacity-75 me-2 py-2 shadow js-call-btn')
       newEditBtn.setAttribute('class', 'btn bg-success bg-opacity-75 text-white text-shadow bg-gradient me-2 shadow js-edit-btn');
       newDeleteBtn.setAttribute('class', 'btn bg-danger text-white bg-gradient shadow js-delete-btn');
    
       newName.textContent = item.name;
       newRelationship.textContent = item.relationship;
       newPhone.textContent =`+998${item.code}${item.number}`;
-      newCallBtn.innerHTML=`<i class="bi bi-telephone-fill pe-none"></i>`
+      newCallLink.innerHTML=`<i class="bi bi-telephone-fill pe-none"></i>`
       newEditBtn.innerHTML = `<i class="bi bi-pen  pe-none"></i>`;
       newDeleteBtn.innerHTML = `<i class="bi bi-x-lg pe-none"></i>`;
-      newCallBtn.dataset.contactId = item.id;
+      newCallLink.dataset.contactId = item.id;
       newEditBtn.dataset.contactId = item.id;
       newDeleteBtn.dataset.contactId = item.id;
       newPhoneLink.href=`tel:998${item.code}${item.number}`;
@@ -110,12 +113,10 @@ const renderContact = (arr, node)=>{
       newDivN.appendChild(newName);
       newDivN.appendChild(newRelationship);
       newDivP.appendChild(newPhoneLink);
-      newCallLink.appendChild(newCallBtn);
       newDivBtn.appendChild(newCallLink);
       newDivBtn.appendChild(newEditBtn);
       newDivBtn.appendChild(newDeleteBtn);
       newItem.appendChild(newDivN);
-      // newItem.appendChild(newDivR);
       newItem.appendChild(newDivP);
       newItem.appendChild(newDivBtn);
 
@@ -131,7 +132,7 @@ const renderContact = (arr, node)=>{
       elClearBtn.classList.add('d-none');
       const elText = document.createElement('p');
       elText.textContent = 'Add a contact 😐';
-      elText.setAttribute('class', 'text-center text-white fs-4 mt-2 pt-1');
+      elText.setAttribute('class', 'text-center fw-semibold  fs-4 mt-2 pt-1');
       elList.appendChild(elText)
       
    }
@@ -177,11 +178,9 @@ elNameInput.addEventListener('input', (evt)=>{
    }
 })
 
-
 let truth=true;
 
 elForm.addEventListener('submit', (evt)=>{
-   evt.preventDefault()
    if(elNameInput.value.length === 0){
       elNameInput.setAttribute('class','form-control new-w-60 mx-auto mb-2 shadow outline-red border-danger')
    }
@@ -212,9 +211,10 @@ elForm.addEventListener('submit', (evt)=>{
    }
 
 
-   // if(elNameInput.value.length === 0 || elRelationshipSelect.value == 'Relationship' || truth!=true || elPhoneCode.value.length!==2 || elPhoneNumber.value.length!==7){
-   //    alert("Enter complete Contact information…❗")
-   // }
+   if( elNameInput.value.length === 0 || elRelationshipSelect.value == 'Relationship' || truth!=true || elPhoneCode.value.length!==2 || elPhoneNumber.value.length!==7){
+      alert("Enter complete Contact information…❗")
+      evt.preventDefault()
+   }
 
    if(elNameInput.value != '' && elRelationshipSelect.value != 'Relationship' && elPhoneCode.value.length===2 && elPhoneNumber.value.length===7 && truth!=false){
       let elNameValue = elNameInput.value;
@@ -238,15 +238,14 @@ elForm.addEventListener('submit', (evt)=>{
            time: newdate
        };
 
+
        contact.push(newContact);
 
        renderContact(contact, elList);
       
-       elForm.replace()
-      //  elListTitile.setAttribute('class', 'list d-flex list-group list-group-horizontal mx-auto w-100 p-0 js-list-title')
-       elModal.setAttribute('class', 'modal-wrapper d-none')
-   }
-})
+        elModal.setAttribute('class', 'modal-wrapper d-none')
+      }
+   })
 
 const editFunction=(array)=>{
 
@@ -380,26 +379,51 @@ elClearBtn.addEventListener('click', (evt)=>{
 let elSelectSort=document.querySelector('#sort');
 
 
-elSelectSort.addEventListener('change',(e)=>{
+elSelectSort.addEventListener('change',(evt)=>{
+   
     let elSelectSortVal=elSelectSort.value;
 
     if(elSelectSortVal != "Sort"){
         if(elSelectSortVal == "A-Z"){
             const contactSort = contact.sort((a, b)=> a.name.charCodeAt(0)-b.name.charCodeAt(0));
             renderContact(contactSort, elList);
+            evt.preventDefault();
         }
         else if(elSelectSortVal == "Z-A"){
             const contactSort = contact.sort((a, b)=> b.name.charCodeAt(0)-a.name.charCodeAt(0));
             renderContact(contactSort, elList);
+
+            evt.preventDefault();
         }
     }
     else{
        const contactSort = contact.sort((a, b)=> a.time-b.time);
        renderContact(contactSort, elList);
+       evt.preventDefault();
     }
     
-    e.preventDefault();
 })
+
+// search
+
+let elFrom = document.querySelector('.serch-form');
+let elInput = document.querySelector('#search');
+
+let newArray=[];
+
+elFrom.addEventListener('input',(evt)=>{
+    evt.preventDefault();
+    elList.innerHTML=''
+    let elInputValue=elInput.value.toLocaleLowerCase();
+
+    contact.forEach((el)=>{
+        if(el.name.toLocaleLowerCase().includes(elInputValue)){
+            newArray.push(el)
+        }
+    });
+    renderContact(newArray, elList)
+    newArray=[]
+});
 
 // darkmode
 
@@ -416,18 +440,21 @@ elModeBtn.addEventListener('click', function(){
 
 function changeTheme(){
    if(window.localStorage.getItem('theme')==='dark'){
-      document.body.classList.remove('light')
-      elHeader.classList.remove('header-light')
+      document.body.classList.remove('light');
+      elHeader.classList.remove('header-light');
       document.body.classList.add('dark');
-      elHeader.classList.add('header-dark')  
-
-      elModeBtn.innerHTML=`<i class="bi bi-sun text-white pe-none fs-4 text-shadow"></i>`
+      elHeader.classList.add('header-dark');
+      elList.classList.remove('text-dark'); 
+      elList.classList.add('text-white'); 
+      elModeBtn.innerHTML=`<i class="bi bi-sun text-white pe-none fs-4 text-shadow"></i>`;
    }else{
       document.body.classList.remove('dark');
-      elHeader.classList.remove('header-dark')
+      elHeader.classList.remove('header-dark');
       document.body.classList.add('light');
-      elHeader.classList.add('header-light')
-      elModeBtn.innerHTML=`<i class="bi bi-moon-stars text-dark pe-none fs-4 text-shadow"></i>`
+      elHeader.classList.add('header-light');
+      elList.classList.remove('text-white'); 
+      elList.classList.add('text-dark');
+      elModeBtn.innerHTML=`<i class="bi bi-moon-stars text-dark pe-none fs-4 text-shadow"></i>`;
    }
 }
 

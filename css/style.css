@@ -164,7 +164,9 @@ main{
 .darkmode{
     border: none;
 }
-
+#search::placeholder{
+    color: #d1d1d1;
+}
 
 
 /* loader */
