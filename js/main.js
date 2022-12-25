@@ -429,7 +429,7 @@ elFrom.addEventListener('input',(evt)=>{
 
 let elModeBtn = document.querySelector('.darkmode');
 
-let theme=true;
+let theme=false;
 
 elModeBtn.addEventListener('click', function(){
    theme = !theme;
