@@ -28,9 +28,9 @@ elModal.addEventListener('click', (evt)=>{
 })
 
 // time
-let date= new Date();
+// let date= new Date();
 
-let newdate=date.getTime();
+// let newdate=date.getTime();
 
 
 
@@ -66,7 +66,7 @@ const localData = JSON.parse(window.localStorage.getItem('contact'));
 
 const contact = localData ? localData : [];
 // const contact = localData || [];
-
+let LastNumber=localData;
 
 const renderContact = (arr, node)=>{
    window.localStorage.setItem('contact', JSON.stringify(contact));
@@ -92,7 +92,7 @@ const renderContact = (arr, node)=>{
       newName.setAttribute('class', 'fs-2 m-0 p-0');
       newRelationship.setAttribute('class', ' fs-6 text-warning');
       newPhoneLink.setAttribute('class', 'phone-link')
-      newPhone.setAttribute('class', 'phone fs-5 pe-none border-white text-white');
+      newPhone.setAttribute('class', 'phone fs-5 pe-none border-white text-white js-phone');
       newCallLink.setAttribute('class', 'btn btn-primary bg-opacity-75 me-2 py-2 shadow js-call-btn')
       newEditBtn.setAttribute('class', 'btn bg-success bg-opacity-75 text-white text-shadow bg-gradient me-2 shadow js-edit-btn');
       newDeleteBtn.setAttribute('class', 'btn bg-danger text-white bg-gradient shadow js-delete-btn');
@@ -124,9 +124,11 @@ const renderContact = (arr, node)=>{
       node.appendChild(newItem);
    });
 
+   
    if(arr.length !== 0){
       elClearBtn.classList.remove('d-none');
       elAddBtn.setAttribute('class','btn btn-success w-100 mb-4 shadow p-2 rounded js-add')
+
    }
    if(arr.length === 0){
       elClearBtn.classList.add('d-none');
@@ -223,9 +225,6 @@ elForm.addEventListener('submit', (evt)=>{
       let elPhoneCodeValue = elPhoneCode.value;
       let elPhoneNumberValue = elPhoneNumber.value;
       elRelationshipSelect.value=="Relationship";
-       elRelationshipInput.value='';
-       elNameInput.value='';
-       elRelationshipInput.value='';
        elPhoneCode.value="";
        elPhoneNumber.value='';
 
@@ -235,23 +234,34 @@ elForm.addEventListener('submit', (evt)=>{
            relationship: elRelationshipSelectValue == "Another" ? elRelationshipInputValue : elRelationshipSelectValue,
            code: elPhoneCodeValue,
            number: elPhoneNumberValue,
-           time: newdate
+         //   time: newdate
        };
+       
+       let NewNumber=newContact.code + newContact.number;
 
+         findedItem=LastNumber.find((item)=> (item.code + item.number) == NewNumber);
+         if(findedItem){
+            alert('Bunday raqam mavjud❗');
+              evt.preventDefault()
+              
+                        
+            if(elPhoneCode.value.length!==2){
+                  elPhoneCode.setAttribute('class',' form-control new-w-10  mb-5 shadow border-5 rounded-start outline-red border-danger')
+            }
 
-       contact.push(newContact);
-
-       renderContact(contact, elList);
-      
-        elModal.setAttribute('class', 'modal-wrapper d-none')
+            if(elPhoneNumber.value.length!==7){
+               elPhoneNumber.setAttribute('class','form-control new-w-60  mb-5 shadow border-5 rounded-end outline-red border-danger')
+            }
+         }
+         else{
+            contact.push(newContact);
+            renderContact(contact, elList);
+         }
+         
+      //   elModal.setAttribute('class', 'modal-wrapper d-none')
       }
    })
 
-const editFunction=(array)=>{
-
-   console.log(array);
-
-}
 let newId=0;
 
 elList.addEventListener('click', (evt)=>{
@@ -397,7 +407,7 @@ elSelectSort.addEventListener('change',(evt)=>{
         }
     }
     else{
-       const contactSort = contact.sort((a, b)=> a.time-b.time);
+       const contactSort = contact.sort((a, b)=> a.id-b.id);
        renderContact(contactSort, elList);
        evt.preventDefault();
     }
@@ -459,3 +469,4 @@ function changeTheme(){
 }
 
 changeTheme();
+
