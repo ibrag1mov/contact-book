@@ -256,9 +256,9 @@ elForm.addEventListener('submit', (evt)=>{
          else{
             contact.push(newContact);
             renderContact(contact, elList);
+            elModal.setAttribute('class', 'modal-wrapper d-none')
          }
          
-      //   elModal.setAttribute('class', 'modal-wrapper d-none')
       }
    })
 
